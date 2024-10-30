@@ -80,11 +80,17 @@ WSGI_APPLICATION = 'ShoppingLista.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('POSTGRES_DATABASE', 'verceldb'),
+        'USER': os.environ.get('POSTGRES_USER', 'default'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', '7eJuZjQWwr5N'),  # Ideally, keep this secure
+        'HOST': os.environ.get('POSTGRES_HOST', 'ep-crimson-rice-a4dypq53-pooler.us-east-1.aws.neon.tech'),
+        'PORT': '5432',  # Typically PostgreSQL default port
+        'OPTIONS': {
+            'sslmode': 'require',  # Ensures SSL is used
+        },
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
